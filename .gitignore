@@ -1,4 +1,5 @@
 /README.md
 /toci/*
+/interface/**/node_modules
 /assets/*
 !/assets/images
