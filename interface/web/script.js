@@ -1,13 +1,15 @@
 // Fungsi close alert
 const closeButton = document.querySelector('#alert-3 button');
+const alertDiv = document.querySelector('#alert-3');
 closeButton.addEventListener('click', function() {
-    const alertDiv = document.querySelector('#alert-3');
     alertDiv.style.display = 'none';
 });
+setTimeout(() => alertDiv.style.display = 'none', 3000)
 
 
-function handleButtonClick(fruit) {
-    // var xhr = new XMLHttpRequest();
-    // xhr.open('GET', '/press?fruit=' + fruit, true);
-    // xhr.send();
+
+function handleButtonClick(animation) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://192.168.4.22/press?animation=' + animation, true);
+    xhr.send();
 }
