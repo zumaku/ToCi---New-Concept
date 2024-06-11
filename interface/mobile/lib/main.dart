@@ -103,59 +103,62 @@ class _MyHomepageState extends State<MyHomepage> {
                 ),
                 itemBuilder: (context, index) {
                   final item = animationList[index];
-                  return MouseRegion( // Gunakan MouseRegion untuk menangkap event hover
+                  return MouseRegion(
                     onHover: (event) {
-                      // Saat dihover, ubah state untuk memicu perubahan skala
                       setState(() {
                         animationList[index].isHovered = true;
                       });
                     },
                     onExit: (event) {
-                      // Saat keluar dari hover, ubah state untuk memicu perubahan skala kembali normal
                       setState(() {
                         animationList[index].isHovered = false;
                       });
                     },
                     child: Transform.scale(
-                      // Gunakan Transform.scale untuk mengubah ukuran widget saat dihover
-                      scale: animationList[index].isHovered ? 1.01 : 1.0, // Ubah faktor skala sesuai kebutuhan
+                      scale: animationList[index].isHovered ? 1.01 : 1.0,
                       child: SizedBox(
-                        height: 100, // Set the desired height for the card
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: Color(0xFFB2B6CE), // Warna border
-                              width: 0.3, // Ketebalan border
+                        height: 100,
+                        child: InkWell(
+                          onTap: () {
+                            // Tambahkan aksi yang ingin dilakukan ketika Card diklik
+                            print('Card clicked: ${item.id}');
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: Color(0xFFB2B6CE),
+                                width: 0.3,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            borderRadius: BorderRadius.circular(8.0), // Bulatan sudut
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Expanded(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                      'images/${item.image}',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                    child: Text(
-                                      item.nama,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Expanded(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.asset(
+                                        'images/${item.image}',
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(
+                                        item.nama,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
