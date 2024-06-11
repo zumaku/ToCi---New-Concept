@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '/model/animations.dart';
 
 void main() {
@@ -21,7 +22,20 @@ class MyHomepage extends StatefulWidget {
 }
 
 class _MyHomepageState extends State<MyHomepage> {
-  // Buat class State terpisah
+  Future<void> sendAnimationRequest(int animationId) async {
+    final url = Uri.parse('http://192.168.4.22/press?animation=${animationId}');
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        print('Request sent successfully');
+      } else {
+        print('Failed to send request: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error occurred while sending request: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,6 +135,7 @@ class _MyHomepageState extends State<MyHomepage> {
                         child: InkWell(
                           onTap: () {
                             // Tambahkan aksi yang ingin dilakukan ketika Card diklik
+                            sendAnimationRequest(item.id);
                             print('Card clicked: ${item.id}');
                           },
                           child: Card(
