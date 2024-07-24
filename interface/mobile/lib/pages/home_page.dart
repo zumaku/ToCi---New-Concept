@@ -24,26 +24,39 @@ class _HomepageState extends State<Homepage> {
     });
 
     final url = Uri.parse('http://192.168.4.22/press?animation=$animationId');
+    // print("Request URL: $url");
 
     try {
       final response = await http.get(url);
+      // print("Response Status Code: ${response.statusCode}");
+      // print("Response Body: ${response.body}");
 
       if (response.statusCode == 200) {
         setState(() {
           _selectedCardId = animationId;
-          _isLoading = false;
         });
+      } else {
+        _showFlushbar(
+          title: "Gagal Menyetel",
+          message:
+              'Pastikan perangkat anda terhubung ke jaringan ToCi. Status: ${response.statusCode}',
+          titleColor: const Color(0xffd44141),
+          duration: 10,
+        );
       }
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
+      // print("Catch Error: $e");
       _showFlushbar(
         title: "Gagal Menyetel",
-        message: 'Pastikan perangkat anda terhubung ke jaringan ToCi.',
+        message:
+            'Pastikan perangkat anda terhubung ke jaringan ToCi. Error: $e',
         titleColor: const Color(0xffd44141),
         duration: 10,
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 

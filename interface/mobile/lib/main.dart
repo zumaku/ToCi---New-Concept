@@ -24,17 +24,17 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: "ToCi Mobile",
           theme: ThemeData(
-            primaryColor: const Color(0xFF1B8345),
-            appBarTheme: const AppBarTheme(
+            primaryColor: Color(0xFF1B8345),
+            appBarTheme: AppBarTheme(
               color: Colors.transparent,
             ),
-            scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-            buttonTheme: const ButtonThemeData(
+            scaffoldBackgroundColor: Color(0xFFFFFFFF),
+            buttonTheme: ButtonThemeData(
               buttonColor: Color(0xFF1B8345),
             ),
           ),
           home: nameProvider.name != ''
-              ? const Homepage()
+              ? Homepage()
               : IntroductionsScreen(),
         );
       },
