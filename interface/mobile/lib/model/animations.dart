@@ -1,12 +1,10 @@
 class Animation {
   int id;
-  String nama;
   String image;
   bool isHovered;
 
   Animation({
     required this.id,
-    required this.nama,
     required this.image,
     required this.isHovered,
   });
@@ -15,38 +13,52 @@ class Animation {
 var animationList = [
   Animation(
     id: 0,
-    nama: 'Eye Expression',
-    image: 'Animation Display (1).png',
+    image: 'eye_animation.gif',
     isHovered: false,
   ),
   Animation(
     id: 1,
-    nama: 'Inready',
-    image: 'Animation Display (2).png',
+    image: 'robot_enjoying.gif',
     isHovered: false,
   ),
   Animation(
     id: 2,
-    nama: 'Zuma AIBot',
-    image: 'Animation Display (3).png',
+    image: 'robot_selfie.gif',
     isHovered: false,
   ),
   Animation(
     id: 3,
-    nama: 'Cat Funny',
-    image: 'Animation Display (4).png',
+    image: 'robot_dancing.gif',
     isHovered: false,
   ),
   Animation(
     id: 4,
-    nama: 'Cat Eyebrow',
-    image: 'Animation Display (5).png',
+    image: 'late_nnight_work.gif',
     isHovered: false,
   ),
   Animation(
     id: 5,
-    nama: 'Cat Drumming',
-    image: 'Animation Display (6).png',
+    image: 'trow_ball.gif',
+    isHovered: false,
+  ),
+  Animation(
+    id: 6,
+    image: 'stickman_fight.gif',
+    isHovered: false,
+  ),
+  Animation(
+    id: 7,
+    image: 'zuma_aibot.gif',
+    isHovered: false,
+  ),
+  Animation(
+    id: 8,
+    image: 'inready_logo.gif',
+    isHovered: false,
+  ),
+  Animation(
+    id: 9,
+    image: 'kissing_cat.gif',
     isHovered: false,
   ),
 ];
