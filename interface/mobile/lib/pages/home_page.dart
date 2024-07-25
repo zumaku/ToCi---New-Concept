@@ -17,6 +17,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   int? _selectedCardId;
   bool _isLoading = false;
+  bool _isFail = false;
 
   Future<void> sendAnimationRequest(int animationId) async {
     setState(() {
@@ -36,23 +37,29 @@ class _HomepageState extends State<Homepage> {
           _selectedCardId = animationId;
         });
       } else {
-        _showFlushbar(
-          title: "Gagal Menyetel",
-          message:
-              'Pastikan perangkat anda terhubung ke jaringan ToCi. Status: ${response.statusCode}',
-          titleColor: const Color(0xffd44141),
-          duration: 10,
-        );
+        // _showFlushbar(
+        //   title: "Gagal Menyetel",
+        //   message:
+        //       'Pastikan perangkat anda terhubung ke jaringan ToCi. Status: ${response.statusCode}',
+        //   titleColor: const Color(0xffd44141),
+        //   duration: 10,
+        // );
+        setState(() {
+          _isFail = true;
+        });
       }
     } catch (e) {
       // print("Catch Error: $e");
-      _showFlushbar(
-        title: "Gagal Menyetel",
-        message:
-            'Pastikan perangkat anda terhubung ke jaringan ToCi. Error: $e',
-        titleColor: const Color(0xffd44141),
-        duration: 10,
-      );
+      // _showFlushbar(
+      //   title: "Gagal Menyetel",
+      //   message:
+      //       'Pastikan perangkat anda terhubung ke jaringan ToCi. Error: $e',
+      //   titleColor: const Color(0xffd44141),
+      //   duration: 10,
+      // );
+      setState(() {
+        _isFail = true;
+      });
     } finally {
       setState(() {
         _isLoading = false;
@@ -215,7 +222,7 @@ class _HomepageState extends State<Homepage> {
                                     child: GifView.asset(
                                       'assets/images/animations_gif/${item.image}',
                                       fit: BoxFit.cover,
-                                      frameRate: 12, // default is 15 FPS
+                                      frameRate: 10, // default is 15 FPS
                                     ),
                                   ),
                                 ),
@@ -230,11 +237,12 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
           ),
+
           // Loading Indicator
           Visibility(
             visible: _isLoading,
             child: Container(
-              color: const Color.fromARGB(162, 0, 0, 0),
+              color: Color.fromARGB(184, 0, 0, 0),
               child: Center(
                 child: GifView.asset(
                   'assets/images/toci_gif/04_toci_animation.gif',
@@ -243,6 +251,73 @@ class _HomepageState extends State<Homepage> {
                   frameRate: 2,
                 ),
               ),
+            ),
+          ),
+
+          // Fail to set aimation Indicator
+          Visibility(
+            visible: _isFail,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              color: const Color.fromARGB(184, 0, 0, 0),
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GifView.asset(
+                    'assets/images/toci_gif/05_toci_animation.gif',
+                    width: MediaQuery.sizeOf(context).width / 3,
+                    height: MediaQuery.sizeOf(context).width / 3,
+                    frameRate: 2,
+                  ),
+                  Text(
+                    "Gagal Menyetel Animasi!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Pastikan Perangkat telah terhubung ke jaringan ToCi.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _isFail = false;
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color(0xFF1B8345),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 32.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: const Text(
+                      'Tutup',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              )),
             ),
           ),
         ],
